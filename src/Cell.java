@@ -1,12 +1,22 @@
 public class Cell {
-	public int x;
-	public int y;
-	public Cell(int x, int y) {
-		this.x = x;
-		this.y = y;
+	private int row;
+	private int col;
+	public int up;
+	public int right;
+	public int down;
+	public int left;
+	public int checkStatus;
+	
+	public Cell(){
+		
+	}
+	
+	public Cell(int row, int col) {
+		this.row = row;
+		this.col = col;
 	}
 	
 	public String toString() {
-		return "(" + this.x + "," + this.y + ")";
+		return "(" + this.row + "," + this.col + ")";
 	}
 }
