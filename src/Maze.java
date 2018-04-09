@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 class Maze extends JPanel {
 	private static final int N = 30;
 	private static char[][] map = new char[N][N];
-	private static Location entrance;
-	private static Location exit;
-	private static Stack<Location> s = new Stack<Location>();
+	private static Cell entrance;
+	private static Cell exit;
+	private static Stack<Cell> s = new Stack<Cell>();
 	Random random = new Random(); 
 
 	public Maze() {
@@ -36,12 +36,12 @@ class Maze extends JPanel {
 		if (r == 0 || r == N-1) {
 			c = random.nextInt(N); // create random number from 0 to N (not inclusive);
 			map[c][r] = 'S';
-			entrance = new Location(c, r);
+			entrance = new Cell(c, r);
 		}
 		else {
 			k = (random.nextInt() % 2 == 0) ? 0 : N-1; // choose between 0 and N-1
 			map[k][r] = 'S';
-			entrance = new Location(k, r);
+			entrance = new Cell(k, r);
 		}
 		s.push(entrance);
 		System.out.println(entrance);
@@ -59,7 +59,7 @@ class Maze extends JPanel {
 			}else {
 				newExit();
 			}
-			exit = new Location(c, r);
+			exit = new Cell(c, r);
 		}else {
 			k = (random.nextInt() % 2 == 0) ? 0 : N-1; // choose between 0 and N-1
 			if(map[k][r] != 'S') {
@@ -67,12 +67,12 @@ class Maze extends JPanel {
 			}else {
 				newExit();
 			}
-			exit = new Location(k, r);
+			exit = new Cell(k, r);
 		}
 		System.out.println(exit);
 	}
 	
-	public void drawPath(Location curLocation) {
+	public void drawPath(Cell curLocation) {
 //		System.out.println(curLocation);	
 		while(!s.isEmpty()) {
 			curLocation = findDirection(curLocation);
@@ -96,16 +96,16 @@ class Maze extends JPanel {
 		}
 	}
 	
-	public Location findDirection(Location location) {
-		ArrayList<Location> direction = new ArrayList<Location>();
-		Location newlocation; 
+	public Cell findDirection(Cell location) {
+		ArrayList<Cell> direction = new ArrayList<Cell>();
+		Cell newlocation; 
 		int[] x = {0, 1, 0, -1};
 		int[] y = {-1, 0, 1, 0};
 		for(int i = 0; i < x.length; i++) {
 			int c = location.x+x[i];
 			int r = location.y+y[i];
 			if((c >= 0 && c <= N-1) && (r >= 0 && r <= N-1) && map[c][r] != 'S' && map[c][r] != 'p') {
-				newlocation = new Location(c, r);
+				newlocation = new Cell(c, r);
 //				System.out.println("findDirection"+newlocation);
 				if(isValidMove(newlocation)) 
 					direction.add(newlocation);
@@ -122,7 +122,7 @@ class Maze extends JPanel {
 			return null;
 	} 
 	
-	public boolean isValidMove(Location location) {
+	public boolean isValidMove(Cell location) {
 		int count = 0;
 		int x = location.x;
 		int y = location.y;
