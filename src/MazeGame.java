@@ -26,7 +26,7 @@ public class MazeGame extends JFrame {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
-//        f.setResizable(false);
+        f.setResizable(false);
 	}
 }
 
