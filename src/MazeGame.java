@@ -17,11 +17,14 @@ public class MazeGame extends JFrame {
         JMenuItem newgame = game.add("New Game");
         JMenuItem exit = game.add("Exit");
         JMenu help = new JMenu("Help");
+        JMenuItem dfs = help.add("DFS Solution");
+        JMenuItem bfs = help.add("BFS Solution");
+        
         menu.add(game);
         menu.add(help);
         
 //      f.setContentPane(new Maze());
-        f.setSize(600, 644);
+        f.setSize(400, 444);
         f.setTitle("Maze Test");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
