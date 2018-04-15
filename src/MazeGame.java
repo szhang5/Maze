@@ -17,6 +17,7 @@ public class MazeGame extends JFrame implements ActionListener {
 		newgame.addActionListener(this);
 		exit.addActionListener(this);
 		dfs.addActionListener(this);
+		bfs.addActionListener(this);
 		m = new Maze();
 		add(m);
 	}
@@ -24,18 +25,24 @@ public class MazeGame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(newgame)) {
-			Maze.cell = m.getNewMaze();
+			Maze.maze = m.getNewMaze();
 			repaint();
 		}
 		if(e.getSource().equals(exit)) {
 			System.exit(0);
 		}
 		if(e.getSource().equals(dfs)) {
-			SolveByDFS dfs = new SolveByDFS(Maze.cell);
+			SolveByDFS dfs = new SolveByDFS(Maze.maze);
 			t = new Timer(50, new TimerListener(dfs));
 	        t.start();
-
 		}
+		if(e.getSource().equals(bfs)) {
+			SolveByBFS bfs = new SolveByBFS(m.maze);	
+			m.maze = bfs.getMaze();
+			System.out.println(Arrays.deepToString(m.maze));
+			repaint();
+		}
+		
 	}
 
 	public static void main(String[] args) {
@@ -73,7 +80,7 @@ public class MazeGame extends JFrame implements ActionListener {
 			this.dfs = dfs;
 		}
         public void actionPerformed(ActionEvent e) {	
-			Maze.cell = dfs.getMaze();
+			Maze.maze = dfs.getMaze();
 //			System.out.println(Arrays.deepToString(Maze.cell));
 			if ((dfs.getCol() == dfs.N-1 && dfs.getRow() == dfs.N-1)){
 				t.stop();

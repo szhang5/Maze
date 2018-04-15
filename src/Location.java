@@ -1,4 +1,3 @@
-
 public class Location {
 	public int col;
 	public int row;
