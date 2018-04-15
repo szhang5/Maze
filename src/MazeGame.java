@@ -1,10 +1,14 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class MazeGame extends JFrame {
+public class MazeGame extends JFrame implements ActionListener {
     public MazeGame() {
 		Maze a = new Maze();
         add(a);
     }
+    
+    
 	public static void main(String[] args) {
 		MazeGame f = new MazeGame();
 
@@ -17,11 +21,14 @@ public class MazeGame extends JFrame {
         JMenuItem newgame = game.add("New Game");
         JMenuItem exit = game.add("Exit");
         JMenu help = new JMenu("Help");
-        JMenuItem dfs = help.add("DFS Solution");
-        JMenuItem bfs = help.add("BFS Solution");
+        JMenuItem dfs = new JMenuItem("DFS Solution");
+        	help.add(dfs);
+        JMenuItem bfs = new JMenuItem("BFS Solution");
+        	help.add(bfs);
         
         menu.add(game);
         menu.add(help);
+        
         
 //      f.setContentPane(new Maze());
         f.setSize(400, 444);
@@ -31,6 +38,14 @@ public class MazeGame extends JFrame {
         f.setVisible(true);
         f.setResizable(false);
 	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
 
 

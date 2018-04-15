@@ -1,10 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Stack;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JPanel;
 
@@ -18,8 +16,10 @@ class Maze extends JPanel {
 	public Maze() {
 		newMap();
 		drawPath();
-		cell[0][0].left = 1; // 1 stands for open the wall; left stands for the left wall of the cell
+		cell[0][0].left = 1;  // 1 stands for open the wall; left stands for the left wall of the cell
 		cell[N - 1][N - 1].right = 1;
+		SolveByDFS dfs = new SolveByDFS(cell);	
+		cell = dfs.getMaze();
 	}
 
 	public void newMap() {
@@ -27,6 +27,7 @@ class Maze extends JPanel {
 			for (int r = 0; r < N; r++) {
 				cell[c][r] = new Cell();
 				cell[c][r].checkStatus = 0; // 0 stands for unvisited
+				cell[c][r].isPath = 'F'; 
 			}
 		}
 	}
@@ -60,7 +61,6 @@ class Maze extends JPanel {
 
 	public void drawPath() {
 		do {
-			repaint();
 			cell[c][r].checkStatus = 1; // 1 stands for visited cell;
 			ArrayList<Character> validNeighbor = findUnvisitedNeighbor();
 			if (getDirection(validNeighbor) == null) {
@@ -115,7 +115,6 @@ class Maze extends JPanel {
 					g.fillRect(i * 20, j * 20, 20, 20);
 					g.setColor(Color.black);
 				}
-					
 				if (cell[i][j].up == 0) {
 						g.fillRect(i * 20, j * 20, 20, 2);
 				}
@@ -127,7 +126,12 @@ class Maze extends JPanel {
 				}
 				if (cell[i][j].right == 0) {
 					g.fillRect((i * 20)+18, j * 20, 2, 20);
-				}	
+				}
+				if(cell[i][j].isPath == 'T'){
+					g.setColor(Color.yellow);
+					g.fillRect((i * 20 + 2) , (j * 20 + 2), 18, 18);
+					g.setColor(Color.black);
+				}
 			}
 		}
 	}

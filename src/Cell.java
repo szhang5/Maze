@@ -4,8 +4,9 @@ public class Cell {
 	public int down;
 	public int left;
 	public int checkStatus;
+	public char isPath;
 	
 	public String toString() {
-		return "(" + up + ", " + right + ", " + down + ", "+ left + ", " + checkStatus + ")";
+		return "(" + up + ", " + right + ", " + down + ", "+ left + ", " + checkStatus + ", " + isPath + ")";
 	}
 }
