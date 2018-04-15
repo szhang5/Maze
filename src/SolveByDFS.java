@@ -23,13 +23,9 @@ public class SolveByDFS {
 		Location check;
 		Location tmp;
 		do {
-			Location l = new Location(c, r);
-			System.out.println(l);
 			if(c == 0 && r == 0)
 				maze[c][r].isPath = 'S'; //startPoint
 			ArrayList<Character> validDirction = findDirection();
-			System.out.println(Arrays.toString(validDirction.toArray()));
-			
 			if (getDirection(validDirction) == null) {
 				maze[c][r].isPath = 'W'; //wrong way
 				if(s.isEmpty())
@@ -38,13 +34,11 @@ public class SolveByDFS {
 					tmp = s.pop();
 					c = tmp.col;
 					r = tmp.row;
-					System.out.println("after pop: c = " + c + ", r = " + r);
 					findPath();
 				}		
 			} else {
 				s.push(new Location(c, r));
 				Character direction = getDirection(validDirction);
-				System.out.println(direction);
 				if (direction == 'U') {
 					r--;
 					if(c == N-1 && r == N-1)
@@ -78,8 +72,6 @@ public class SolveByDFS {
 					s.push(new Location(c, r));
 				}
 			}
-			System.out.println("c = " + c + ", r = " + r + ";" + maze[c][r]);
-			System.out.println(s);
 			check = s.peek();
 		}while (!(check.col == N-1 && check.row == N-1));
 	}

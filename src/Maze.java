@@ -129,7 +129,15 @@ class Maze extends JPanel {
 				}
 				if(cell[i][j].isPath == 'T'){
 					g.setColor(Color.yellow);
-					g.fillRect((i * 20 + 2) , (j * 20 + 2), 18, 18);
+					g.fillRect((i * 20 + 2) , (j * 20 + 2), 16, 16);
+					if(cell[i][j].up == 1)
+						g.fillRect((i * 20 + 2), j * 20, 16, 2);
+					if (cell[i][j].left == 1) 
+						g.fillRect(i * 20, (j * 20 + 2), 2, 16);
+					if (cell[i][j].down == 1) 
+							g.fillRect((i * 20 + 2), (j * 20)+18, 16, 2);
+					if (cell[i][j].right == 1)
+						g.fillRect((i * 20)+18, (j * 20 + 2), 2, 16);
 					g.setColor(Color.black);
 				}
 			}

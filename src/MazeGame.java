@@ -1,8 +1,10 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
-public class MazeGame extends JFrame implements ActionListener {
+public class MazeGame extends JFrame implements MenuListener, ActionListener {
     public MazeGame() {
 		Maze a = new Maze();
         add(a);
@@ -41,6 +43,27 @@ public class MazeGame extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void menuSelected(MenuEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void menuDeselected(MenuEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void menuCanceled(MenuEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
