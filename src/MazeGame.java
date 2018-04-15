@@ -11,6 +11,7 @@ public class MazeGame extends JFrame implements ActionListener {
 	static JMenuItem dfs;
 	static JMenuItem bfs;
 	static Maze m;
+	private Timer t;
 	
 	public MazeGame() {
 		newgame.addActionListener(this);
@@ -23,17 +24,17 @@ public class MazeGame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(newgame)) {
-			m.cell = m.getNewMaze();
+			Maze.cell = m.getNewMaze();
 			repaint();
 		}
 		if(e.getSource().equals(exit)) {
 			System.exit(0);
 		}
 		if(e.getSource().equals(dfs)) {
-			SolveByDFS dfs = new SolveByDFS(m.cell);	
-			m.cell = dfs.getMaze();
-			System.out.println(Arrays.deepToString(m.cell));
-			repaint();
+			SolveByDFS dfs = new SolveByDFS(Maze.cell);
+			t = new Timer(50, new TimerListener(dfs));
+	        t.start();
+
 		}
 	}
 
@@ -65,6 +66,20 @@ public class MazeGame extends JFrame implements ActionListener {
 		f.setResizable(false);
 	}
 
-	
+	class TimerListener implements ActionListener {
+		private SolveByDFS dfs;
+		
+		public TimerListener(SolveByDFS dfs) {
+			this.dfs = dfs;
+		}
+        public void actionPerformed(ActionEvent e) {	
+			Maze.cell = dfs.getMaze();
+//			System.out.println(Arrays.deepToString(Maze.cell));
+			if ((dfs.getCol() == dfs.N-1 && dfs.getRow() == dfs.N-1)){
+				t.stop();
+			}
+			repaint();
+        }
+    }
 
 }
