@@ -1,14 +1,6 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Stack;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 
 public class SolveByDFS extends JPanel {
 	public static final int N = 20;

@@ -17,6 +17,7 @@ public class MazeGame extends JFrame implements ActionListener {
 		newgame.addActionListener(this);
 		exit.addActionListener(this);
 		dfs.addActionListener(this);
+		bfs.addActionListener(this);
 		m = new Maze();
 		add(m);
 	}
@@ -34,8 +35,14 @@ public class MazeGame extends JFrame implements ActionListener {
 			SolveByDFS dfs = new SolveByDFS(Maze.cell);
 			t = new Timer(50, new TimerListener(dfs));
 	        t.start();
-
 		}
+		if(e.getSource().equals(bfs)) {
+			SolveByBFS bfs = new SolveByBFS(m.maze);	
+			m.maze = bfs.getMaze();
+			System.out.println(Arrays.deepToString(m.maze));
+			repaint();
+		}
+		
 	}
 
 	public static void main(String[] args) {
