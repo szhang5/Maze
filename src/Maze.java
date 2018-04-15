@@ -18,8 +18,8 @@ class Maze extends JPanel {
 		drawPath();
 		maze[0][0].left = 1;  // 1 stands for open the wall; left stands for the left wall of the cell
 		maze[N - 1][N - 1].right = 1;
-		SolveByBFS bfs = new SolveByBFS(maze);
-		maze = bfs.getMaze();
+//		SolveByBFS bfs = new SolveByBFS(maze);
+//		maze = bfs.getMaze();
 	}
 
 	public Cell[][] getNewMaze(){
