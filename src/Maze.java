@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 class Maze extends JPanel {
 	private static final int N = 20;
-	private static Cell[][] cell = new Cell[N][N];
+	public static Cell[][] cell = new Cell[N][N];
 	private static Stack<Location> s = new Stack<Location>();
 	private static int c = 0;
 	private static int r = 0;
@@ -18,10 +18,15 @@ class Maze extends JPanel {
 		drawPath();
 		cell[0][0].left = 1;  // 1 stands for open the wall; left stands for the left wall of the cell
 		cell[N - 1][N - 1].right = 1;
-		SolveByDFS dfs = new SolveByDFS(cell);	
-		cell = dfs.getMaze();
 	}
 
+	public Cell[][] getNewMaze(){
+		newMap();
+		drawPath();
+		cell[0][0].left = 1;  // 1 stands for open the wall; left stands for the left wall of the cell
+		cell[N - 1][N - 1].right = 1;
+		return cell;
+	}
 	public void newMap() {
 		for (int c = 0; c < N; c++) {
 			for (int r = 0; r < N; r++) {

@@ -1,74 +1,70 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
-public class MazeGame extends JFrame implements MenuListener, ActionListener {
-    public MazeGame() {
-		Maze a = new Maze();
-        add(a);
-    }
-    
-    
-	public static void main(String[] args) {
-		MazeGame f = new MazeGame();
+public class MazeGame extends JFrame implements ActionListener {
 
-	    JMenuBar menu = new JMenuBar();
-        f.setJMenuBar(menu);
-        JMenu game = new JMenu("Maze");
-        JMenuItem about = game.add("About Maze");
-        JMenuItem pause = game.add("Pause");
-        JMenuItem goon = game.add("Continue");
-        JMenuItem newgame = game.add("New Game");
-        JMenuItem exit = game.add("Exit");
-        JMenu help = new JMenu("Help");
-        JMenuItem dfs = new JMenuItem("DFS Solution");
-        	help.add(dfs);
-        JMenuItem bfs = new JMenuItem("BFS Solution");
-        	help.add(bfs);
-        
-        menu.add(game);
-        menu.add(help);
-        
-        
-//      f.setContentPane(new Maze());
-        f.setSize(400, 444);
-        f.setTitle("Maze Test");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-	}
+	static JMenuItem newgame;
+	static JMenuItem exit; 
+	static JMenuItem dfs;
+	static JMenuItem bfs;
+	static Maze m;
 	
+	public MazeGame() {
+		newgame.addActionListener(this);
+		exit.addActionListener(this);
+		dfs.addActionListener(this);
+		m = new Maze();
+		add(m);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getSource().equals(newgame)) {
+			m.cell = m.getNewMaze();
+			repaint();
+		}
+		if(e.getSource().equals(exit)) {
+			System.exit(0);
+		}
+		if(e.getSource().equals(dfs)) {
+			SolveByDFS dfs = new SolveByDFS(m.cell);	
+			m.cell = dfs.getMaze();
+			System.out.println(Arrays.deepToString(m.cell));
+			repaint();
+		}
 	}
 
+	public static void main(String[] args) {
+		JMenuBar menu = new JMenuBar();
+		JMenu game = new JMenu("Maze");
+		newgame = new JMenuItem("New Game");
+		game.add(newgame);
+		exit = new JMenuItem("Exit");
+        game.add(exit);
+		JMenu solution = new JMenu("Solution");
+		dfs = new JMenuItem("DFS Solution");
+		bfs = new JMenuItem("BFS Solution");
+		solution.add(dfs);
+		solution.add(bfs);
 
-	@Override
-	public void menuSelected(MenuEvent e) {
-		// TODO Auto-generated method stub
-		
+		MazeGame f = new MazeGame();
+		f.setJMenuBar(menu);
+
+		menu.add(game);
+		menu.add(solution);
+
+		// f.setContentPane(new Maze());
+		f.setSize(400, 444);
+		f.setTitle("Maze Test");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setLocationRelativeTo(null);
+		f.setVisible(true);
+		f.setResizable(false);
 	}
 
-
-	@Override
-	public void menuDeselected(MenuEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void menuCanceled(MenuEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 
 }
-
-
