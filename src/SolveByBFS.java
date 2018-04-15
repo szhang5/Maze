@@ -13,19 +13,22 @@ public class SolveByBFS {
 
 	public SolveByBFS(Cell[][] maze) {
 		this.maze = maze;
-		findPath();
+		Cell tmp = findPath();
+		getPath(tmp);
 	}
 
 	public Cell[][] getMaze() {
 		return maze;
 	}
 
-	public void findPath() {
+	public Cell findPath() {
 		Location tmp;
 		do {
 			System.out.println("(" + c + " ," + r + ")");
-			if(c == 0 && r == 0)
+			if(c == 0 && r == 0) {
 				maze[c][r].isPath = 'S';
+				maze[c][r].parent = null;
+			}
 			System.out.println(maze[c][r]);
 			
 			ArrayList<Character> validDirction = findDirection();
@@ -42,7 +45,8 @@ public class SolveByBFS {
 						if(tmpC == N-1 && tmpC == N-1)
 							maze[tmpC][tmpR].isPath = 'E'; //endPoint
 						else
-							maze[tmpC][tmpR].isPath = 'T';
+							maze[tmpC][tmpR].isPath = 't';
+						maze[tmpC][tmpR].parent = new Location(c, r);
 						q.add(new Location(tmpC, tmpR));
 					}
 					if (direction == 'L') {
@@ -50,7 +54,8 @@ public class SolveByBFS {
 						if(tmpC == N-1 && tmpR == N-1)
 							maze[tmpC][tmpR].isPath = 'E'; //endPoint
 						else
-							maze[tmpC][tmpR].isPath = 'T';
+							maze[tmpC][tmpR].isPath = 't';
+						maze[tmpC][tmpR].parent = new Location(c, r);
 						q.add(new Location(tmpC, tmpR));
 					}
 					if (direction == 'D') {
@@ -58,7 +63,8 @@ public class SolveByBFS {
 						if(tmpC == N-1 && tmpR == N-1)
 							maze[tmpC][tmpR].isPath = 'E'; //endPoint
 						else
-							maze[tmpC][tmpR].isPath = 'T';
+							maze[tmpC][tmpR].isPath = 't';
+						maze[tmpC][tmpR].parent = new Location(c, r);
 						q.add(new Location(tmpC, tmpR));
 					}
 					if (direction == 'R') {
@@ -66,7 +72,8 @@ public class SolveByBFS {
 						if(tmpC == N-1 && tmpR == N-1)
 							maze[tmpC][tmpR].isPath = 'E'; //endPoint
 						else
-							maze[tmpC][tmpR].isPath = 'T';
+							maze[tmpC][tmpR].isPath = 't';
+						maze[tmpC][tmpR].parent = new Location(c, r);
 						q.add(new Location(tmpC, tmpR));
 					}
 				}
@@ -76,7 +83,22 @@ public class SolveByBFS {
 			c = tmp.col;
 			r = tmp.row;
 			System.out.println("(" + c + " ," + r + ")");
-		}while(!(c == N-1 && r == N-1));	
+		}while(!(c == N-1 && r == N-1));
+		return maze[N-1][N-1];
+	}
+	
+	public void getPath(Cell cell) {
+		Location path;
+		path = cell.parent;
+		do {
+			c = path.col;
+			r = path.row;
+			if(c == 0 && r == 0)
+				maze[c][r].isPath = 'S';
+			else
+				maze[c][r].isPath = 'T';
+			path = maze[c][r].parent;
+		}while(path != null);
 	}
 
 	public ArrayList<Character> findDirection() {
