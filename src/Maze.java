@@ -18,8 +18,7 @@ class Maze extends JPanel {
 		drawPath();
 		maze[0][0].left = 1;  // 1 stands for open the wall; left stands for the left wall of the cell
 		maze[N - 1][N - 1].right = 1;
-//		SolveByBFS bfs = new SolveByBFS(maze);
-//		maze = bfs.getMaze();
+
 	}
 
 	public Cell[][] getNewMaze(){
@@ -36,6 +35,14 @@ class Maze extends JPanel {
 				maze[c][r] = new Cell();
 				maze[c][r].checkStatus = 0; // 0 stands for unvisited
 				maze[c][r].isPath = 'F'; 
+			}
+		}
+	}
+	
+	public void refreshMaze() {
+		for (int c = 0; c < N; c++) {
+			for (int r = 0; r < N; r++) {
+				maze[c][r].isPath = 'F';
 			}
 		}
 	}
