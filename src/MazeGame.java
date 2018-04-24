@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+
 import javax.swing.*;
 
 public class MazeGame extends JFrame implements ActionListener {
@@ -15,41 +17,45 @@ public class MazeGame extends JFrame implements ActionListener {
 	public MazeGame() {
 		// - Button newgame - //
 		newgame.addActionListener(this);
-		
+
 		// - Button exit - //
 		exit.addActionListener(this);
-		
+
 		// - Button dfs - //
 		dfs.addActionListener(this);
-		
+
 		// - Button bfs - //
 		bfs.addActionListener(this);
-		
+
 		m = new Maze();
 		add(m);
 	}
 
-	//*********************//
+	// *********************//
 	// - Action Listener - //
-	//*********************//
+	// *********************//
 	public void actionPerformed(ActionEvent e) {
 		action = e;
 		if (e.getSource().equals(newgame)) {
 			Maze.maze = m.getNewMaze();
 			repaint();
+			t = new Timer(25, new TimerListener(m));
+			t.start();
 		}
 		if (e.getSource().equals(exit)) {
 			System.exit(0);
 		}
 		if (e.getSource().equals(dfs)) {
+			m.setMaze(Maze.maze);
 			m.refreshMaze();
-			SolveByDFS solveByDFS = new SolveByDFS(Maze.maze);
+			SolveByDFS solveByDFS = new SolveByDFS(m.getMaze());
 			t = new Timer(25, new TimerListener(solveByDFS));
 			t.start();
 		}
 		if (e.getSource().equals(bfs)) {
+			m.setMaze(Maze.maze);
 			m.refreshMaze();
-			SolveByBFS solveByBFS = new SolveByBFS(Maze.maze);
+			SolveByBFS solveByBFS = new SolveByBFS(m.getMaze());
 			t = new Timer(25, new TimerListener(solveByBFS));
 			t.start();
 		}
@@ -58,13 +64,13 @@ public class MazeGame extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		JMenuBar menu = new JMenuBar();
 		JMenu game = new JMenu("Maze");
-		
+
 		newgame = new JMenuItem("New Game");
 		game.add(newgame);
-		
+
 		exit = new JMenuItem("Exit");
 		game.add(exit);
-		
+
 		JMenu solution = new JMenu("Solution");
 		dfs = new JMenuItem("DFS Solution");
 		bfs = new JMenuItem("BFS Solution");
@@ -76,7 +82,7 @@ public class MazeGame extends JFrame implements ActionListener {
 
 		menu.add(game);
 		menu.add(solution);
-		
+
 		// - JFrame Setting - //
 		f.setSize(400, 444);
 		f.setTitle("Maze Test");
@@ -86,12 +92,13 @@ public class MazeGame extends JFrame implements ActionListener {
 		f.setResizable(false);
 	}
 
-	//*******************//
+	// *******************//
 	// - Time Listener - //
-	//*******************//
+	// *******************//
 	class TimerListener implements ActionListener {
 		private SolveByDFS solveByDFS;
 		private SolveByBFS solveByBFS;
+		private Maze mz;
 
 		public TimerListener(SolveByDFS solveByDFS) {
 			this.solveByDFS = solveByDFS;
@@ -101,7 +108,19 @@ public class MazeGame extends JFrame implements ActionListener {
 			this.solveByBFS = solveByBFS;
 		}
 
+		public TimerListener(Maze mz) {
+			this.mz = mz;
+		}
+
 		public void actionPerformed(ActionEvent e) {
+			if (action.getSource().equals(newgame)) {
+				try {
+					mz.getPath();
+				} catch (Exception ee) {
+					t.stop();
+					Maze.maze = mz.getMaze();
+				}
+			}
 			if (action.getSource().equals(dfs)) {
 				Maze.maze = solveByDFS.getMaze();
 				if ((solveByDFS.getCol() == solveByDFS.N - 1 && solveByDFS.getRow() == solveByDFS.N - 1)) {
@@ -113,7 +132,7 @@ public class MazeGame extends JFrame implements ActionListener {
 				if ((solveByBFS.getCol() == solveByBFS.N - 1 && solveByBFS.getRow() == solveByBFS.N - 1)) {
 					t.stop();
 					t = new Timer(50, new TimerListener2(solveByBFS));
-					t.start();					
+					t.start();
 				}
 			}
 			repaint();
@@ -128,7 +147,11 @@ public class MazeGame extends JFrame implements ActionListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			Maze.maze = solveByBFS.getMaze2();
+			try {
+				Maze.maze = solveByBFS.getMaze2();
+			} catch (Exception ee) {
+
+			}
 			if ((solveByBFS.getCol() == 0 && solveByBFS.getRow() == 0)) {
 				t.stop();
 			}

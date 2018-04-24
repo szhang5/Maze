@@ -35,14 +35,11 @@ public class SolveByBFS {
 			maze[c][r].isPath = 'S';
 			maze[c][r].parent = null;
 		}
-
 		ArrayList<Character> validDirction = findDirection();
-
 		if (validDirction.size() > 0) {
 			for (int i = 0; i < validDirction.size(); i++) {
 				Character direction = validDirction.get(i);
-				int tmpC = c;
-				int tmpR = r;
+				int tmpC = c, tmpR = r;
 				// - If GO UP - //
 				if (direction == 'U') {
 					tmpR--;

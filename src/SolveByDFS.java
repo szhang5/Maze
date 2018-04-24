@@ -23,7 +23,6 @@ public class SolveByDFS {
 	//*******************//
 	public void findPath() {
 		Location tmp;
-
 		if(c == 0 && r == 0)
 			maze[c][r].isPath = 'S'; // - startPoint - //
 		ArrayList<Character> validDirction = findDirection();
@@ -33,14 +32,14 @@ public class SolveByDFS {
 				return;
 			else {
 				tmp = s.pop();
-				c = tmp.col;
+				c = tmp.col; 
 				r = tmp.row;
 				findPath();
 			}		
-		} else {
+		} 
+		else {
 			s.push(new Location(c, r));
 			Character direction = getDirection(validDirction);
-			
 			// - If GO UP - //
 			if (direction == 'U') {
 				r--;
