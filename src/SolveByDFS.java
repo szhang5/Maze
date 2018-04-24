@@ -18,14 +18,17 @@ public class SolveByDFS {
 		return maze;
 	}
 	
+	//*******************//
+	// - DFS Find Path - //
+	//*******************//
 	public void findPath() {
 		Location tmp;
 
 		if(c == 0 && r == 0)
-			maze[c][r].isPath = 'S'; //startPoint
+			maze[c][r].isPath = 'S'; // - startPoint - //
 		ArrayList<Character> validDirction = findDirection();
 		if (getDirection(validDirction) == null) {
-			maze[c][r].isPath = 'W'; //wrong way
+			maze[c][r].isPath = 'W'; // - wrong way - //
 			if(s.isEmpty())
 				return;
 			else {
@@ -37,42 +40,49 @@ public class SolveByDFS {
 		} else {
 			s.push(new Location(c, r));
 			Character direction = getDirection(validDirction);
+			
+			// - If GO UP - //
 			if (direction == 'U') {
 				r--;
 				if(c == N-1 && r == N-1)
-					maze[c][r].isPath = 'E'; //endPoint
+					maze[c][r].isPath = 'E'; 
 				else
 					maze[c][r].isPath = 'T';
 				s.push(new Location(c, r));
 			}
+			// - If GO LEFT - //
 			if (direction == 'L') {
 				c--;					
 				if(c == N-1 && r == N-1)
-					maze[c][r].isPath = 'E'; //endPoint
+					maze[c][r].isPath = 'E';
 				else
 					maze[c][r].isPath = 'T';
 				s.push(new Location(c, r));
 			}
+			// - If GO DOWN - //
 			if (direction == 'D') {
 				r++;					
 				if(c == N-1 && r == N-1)
-					maze[c][r].isPath = 'E'; //endPoint
+					maze[c][r].isPath = 'E'; 
 				else
 					maze[c][r].isPath = 'T';
 				s.push(new Location(c, r));
 			}
+			// - If GO RIGHT - //
 			if (direction == 'R') {
 				c++;
 				if(c == N-1 && r == N-1)
-					maze[c][r].isPath = 'E'; //endPoint
+					maze[c][r].isPath = 'E'; 
 				else
 					maze[c][r].isPath = 'T';
 				s.push(new Location(c, r));
 			}
 		}
-	
 	}
 
+	//**************************//
+	// - Find Valid Direction - //
+	//**************************//
 	public ArrayList<Character> findDirection() {
 		ArrayList<Character> openWall = new ArrayList<Character>();
 		if (r > 0 && maze[c][r - 1].isPath == 'F' && maze[c][r - 1].down == 1) 
@@ -86,6 +96,9 @@ public class SolveByDFS {
 		return openWall;
 	}
 
+	//******************************//
+	// - Choose a Valid Direction - //
+	//******************************//
 	public Character getDirection(ArrayList<Character> direction) {
 		if (direction.size() > 0) {
 			Random random = new Random();
