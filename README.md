@@ -2,12 +2,13 @@
 
 Generating maze by DFS:
 
-![alt text](https://github.com/szhang5/Maze/blob/image/src/NewMap.gif)
+<img src="https://github.com/szhang5/Maze/blob/image/src/NewMap.gif" width="300">
 
 Solving maze by Breadth-First Search: 
 
-![alt text](https://github.com/szhang5/Maze/blob/image/src/BFS.gif)
+<img src="https://github.com/szhang5/Maze/blob/image/src/BFS.gif" width="300">
 
 Solving maze by Depth-First Search: 
 
-![alt text](https://github.com/szhang5/Maze/blob/image/src/DFS.gif)
+<img src="https://github.com/szhang5/Maze/blob/image/src/DFS.gif" width="300">
+
